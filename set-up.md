@@ -6,8 +6,8 @@
 #### 1. Create an EC2 instance with the following properties:
 * 20 GiB gp3 storage
 * Amazon Linux 2023
-* 64-bit (x86)
-* t2-micro
+* 64-bit (Arm)
+* t4g-micro
 
 #### 2. Attach a security group to the EC2 instance allowing inbound connections from port 80, 443, 10051 (Zabbix server), 10050 (for Zabbix agent installed on server)
 
@@ -29,7 +29,7 @@
 
 #### 1. Connect to the EC2 instance and install the Zabbix repository and its dependencies using DNF package manager:
 ```
-dnf install -Uvh https://repo.zabbix.com/zabbix/7.2/release/amazonlinux/2023/noarch/zabbix-release-7.2-1.amzn2023.noarch.rpm
+dnf install https://repo.zabbix.com/zabbix/7.2/release/amazonlinux/2023/noarch/zabbix-release-7.2-1.amzn2023.noarch.rpm
 dnf clean all
 dnf install zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf zabbix-sql-scripts zabbix-agent
 ```
@@ -71,7 +71,7 @@ EXIT;
 ## Step 3: Configure NGINX and enable Zabbix server:
 
 #### 1. Edit NGINX configuration files to listen on port 80 and point to the server's public IP or domain:
-`sudo nano /etc/nginx/conf.d/zabbix.conf`
+`nano /etc/nginx/conf.d/zabbix.conf`
 
 ```
 server {
@@ -99,15 +99,15 @@ server {
 ```
 
 #### 2. Test new NGINX configuration:
-`sudo nginx -t`
+`nginx -t`
 
 #### 3. Start and enable NGINX/Zabbix:
 ```
-sudo systemctl start nginx php-fpm
-sudo systemctl enable nginx php-fpm
+systemctl start nginx php-fpm
+systemctl enable nginx php-fpm
 
-sudo systemctl start zabbix-server
-sudo systemctl enable zabbix-server
+systemctl start zabbix-server
+systemctl enable zabbix-server
 ```
 
 ## Step 4: Complete installation using Zabbix frontend:
@@ -133,7 +133,7 @@ sudo systemctl enable zabbix-server
 ## Step 5: Configure Zabbix agent installed locally on Zabbix server:
 
 #### 1. Edit the Zabbix agent configuration file:
-`sudo nano /etc/zabbix/zabbix_agentd.conf`
+`nano /etc/zabbix/zabbix_agentd.conf`
 
 | Property        | Value       |
 | -------------   |:-----------:|
@@ -141,6 +141,9 @@ sudo systemctl enable zabbix-server
 | ServerActive=   | 127.0.0.1   |
 | Hostname=       | hostname    |
 
-#### 2. The Zabbix server should now be available to monitor in the dashboards:
+#### 2. Restart the Zabbix agent:
+`systemctl restart zabbix-agent`
+
+#### 3. The Zabbix server should now be available to monitor in the dashboards:
 
 ![image](https://github.com/user-attachments/assets/9fdd4933-2a4b-41d3-8720-ab572b59c244)
