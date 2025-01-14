@@ -1,5 +1,4 @@
 # **Creating a Zabbix Server Using AWS EC2 and RDS**
-(accurate as of 1/8/25)
 
 ## Prerequisites
 
@@ -14,7 +13,7 @@
 #### 3. Create an RDS instance with the following properties:
 * MySQL 8.0.39
 * db.t3.small
-* 20 GiB gp3 storage
+* 100 GiB gp3 storage
 * A custom parameter group must be created and attached during configuration with ‘log_bin_trust_function_creators’ set to ‘1’ to import initial schema:
 
 ![image](https://github.com/user-attachments/assets/a6b35951-bcb0-4590-b3b6-c106b17d93bc)
