@@ -15,7 +15,7 @@ TIMEZONE="UTC"
 
 # Install required packages
 echo "Installing Zabbix server and related packages..."
-sudo dnf install -y https://repo.zabbix.com/zabbix/6.0/amazonlinux/2023/aarch64/zabbix-release-6.0-4.amzn2023.noarch.rpm
+sudo dnf install -y https://repo.zabbix.com/zabbix/7.2/stable/amazonlinux/2023/aarch64/zabbix-agent-7.2.0-release1.amzn2023.aarch64.rpm
 sudo dnf clean all
 sudo dnf install -y zabbix-server-mysql zabbix-web-mysql zabbix-nginx-conf mysql-client nginx php-fpm
 
