@@ -11,7 +11,6 @@ ZBX_DB_NAME="zabbix"
 ZBX_DB_USER="zabbix"
 ZBX_DB_PASSWORD="zabbix"
 NGINX_CONFIG_PATH="/etc/nginx/conf.d/zabbix.conf"
-TIMEZONE="UTC"
 
 # Install required packages
 echo "Installing Zabbix server and related packages..."
